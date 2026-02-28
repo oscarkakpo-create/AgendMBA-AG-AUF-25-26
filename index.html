@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CESAG / AUF - Agenda FOAD MBA AG (Administration et Gestion) 2025-2026</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #f8f9fa;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --brand: #00853F;
+      --brand-2: #006c31;
+      --accent: #F15A29;
+      --ok: #16a34a;
+      --warn: #ca8a04;
+      --danger: #dc2626;
+      --ring: rgba(0,133,63,.25);
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    
+    header {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      color: #fff;
+      padding: 16px 24px;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.1);
+    }
+    
+    header h1 {
+      margin: 0 0 4px;
+      font-size: 22px;
+      letter-spacing: 0.3px;
+    }
+    
+    header .sub {
+      font-size: 13px;
+      opacity: 0.95;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+    
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid #e5e7eb;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .tab {
+      padding: 12px 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .tab:hover {
+      color: var(--brand);
+      background: rgba(0,133,63,0.05);
+    }
+    
+    .tab.active {
+      color: var(--brand);
+      border-bottom-color: var(--accent);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* TOOLBAR */
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 16px;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .toolbar input[type="search"],
+    .toolbar select {
+      appearance: none;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      outline: none;
+      min-width: 240px;
+      font-size: 14px;
+    }
+    
+    .toolbar input[type="search"]:focus,
+    .toolbar select:focus {
+      box-shadow: 0 0 0 4px var(--ring);
+      border-color: var(--brand);
+    }
+    
+    .btn {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .btn:hover {
+      background: #f9fafb;
+      border-color: var(--brand);
+    }
+    
+    .btn.primary {
+      background: var(--brand);
+      color: #fff;
+      border-color: transparent;
+    }
+    
+    .btn.primary:hover {
+      background: var(--brand-2);
+    }
+    
+    .btn.danger {
+      background: var(--danger);
+      color: #fff;
+      border-color: transparent;
+    }
+    
+    .btn.danger:hover {
+      background: #b91c1c;
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* CARDS */
+    .card {
+      background: var(--card);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--brand);
+    }
+    
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--brand);
+      border-radius: 999px;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .module-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .module-item {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px;
+      transition: all 0.2s;
+    }
+    
+    .module-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(241,90,41,.1);
+    }
+    
+    .module-code {
+      font: 600 11px ui-monospace, monospace;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--brand);
+      border-radius: 6px;
+      padding: 3px 8px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    
+    .module-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    
+    .module-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    
+    .module-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .link-btn {
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    
+    .link-btn:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+      background: #f0fdf4;
+    }
+    
+    .link-btn.exam {
+      border-color: #fbbf24;
+      color: #92400e;
+      background: #fef3c7;
+    }
+    
+    .link-btn.exam:hover {
+      border-color: #f59e0b;
+      background: #fde68a;
+    }
+    
+    /* ROADMAP */
+    .roadmap-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .month-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    
+    .month-btn {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    
+    .month-btn:hover {
+      background: var(--brand-2);
+      transform: scale(1.05);
+    }
+    
+    .month-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    
+    .month-display {
+      flex: 1;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--brand);
+    }
+    
+    .roadmap-content {
+      min-height: 300px;
+    }
+    
+    .alert {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid;
+    }
+    
+    .alert.warning {
+      background: #fffbeb;
+      border-color: #f59e0b;
+      color: #92400e;
+    }
+    
+    .alert.info {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #1e40af;
+    }
+    
+    .alert.success {
+      background: #f0fdf4;
+      border-color: var(--ok);
+      color: #166534;
+    }
+    
+    .alert.error {
+      background: #fef2f2;
+      border-color: var(--danger);
+      color: #991b1b;
+    }
+    
+    .alert-icon {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 18px;
+    }
+    
+    /* EVALUATION */
+    .eval-section {
+      margin-bottom: 24px;
+    }
+    
+    .eval-section h4 {
+      color: var(--brand);
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    
+    .eval-box {
+      background: #fff;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    
+    .eval-box.highlight {
+      border-color: var(--accent);
+      background: #fff7ed;
+    }
+    
+    .eval-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    
+    .eval-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 8px 0;
+    }
+    
+    .eval-list li {
+      padding: 6px 0 6px 24px;
+      position: relative;
+    }
+    
+    .eval-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--ok);
+      font-weight: bold;
+    }
+    
+    .progress-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 16px 0;
+    }
+    
+    .progress-track {
+      flex: 1;
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--ok));
+      transition: width 0.3s;
+    }
+    
+    .tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      font-weight: 500;
+    }
+    
+    /* WEBCAM TESTER */
+    #webcamVideo {
+      width: 100%;
+      max-width: 640px;
+      border-radius: 12px;
+      background: #000;
+      display: none;
+      margin: 0 auto 20px;
+    }
+    
+    .webcam-controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    
+    .device-info {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-size: 14px;
+      color: #166534;
+    }
+    
+    footer {
+      max-width: 1200px;
+      margin: 40px auto 24px;
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    @media (max-width: 768px) {
+      .module-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .toolbar input,
+      .toolbar select,
+      .toolbar button {
+        width: 100%;
+      }
+    }
+    
+    @media print {
+      header, .tabs, .toolbar, .btn, .roadmap-controls { display: none !important; }
+      .tab-content { display: block !important; }
+      .card { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 CESAG / AUF - Agenda FOAD MBA AG (Administration et Gestion)</h1>
+  <div class="sub">Formation Ouverte et À Distance • Partenariat AUF • Promotion 2025-2026 • Planning prévisionnel</div>
+</header>
+
+<div class="container">
+  
+  <!-- NAVIGATION PAR ONGLETS -->
+  <div class="tabs">
+    <button class="tab active" data-tab="modules">📚 Modules</button>
+    <button class="tab" data-tab="roadmap">🗺️ Roadmap</button>
+    <button class="tab" data-tab="evaluation">📝 Consignes & Évaluation</button>
+    <button class="tab" data-tab="webcam">📹 Testeur Webcam</button>
+  </div>
+  
+  <!-- ONGLET A: MODULES -->
+  <div id="tab-modules" class="tab-content active">
+    
+    <div class="toolbar">
+      <input id="searchModules" type="search" placeholder="🔍 Rechercher un module (code, intitulé, UE)..." />
+      <select id="filterSemestre">
+        <option value="all">Tous les modules</option>
+        <option value="S1-TC">Semestre 1 - Tronc commun</option>
+        <option value="S2-TC">Semestre 2 - Tronc commun</option>
+        <option value="GE">Spécialisation : Gestion des entreprises</option>
+        <option value="AP">Spécialisation : Administration publique</option>
+      </select>
+      <button class="btn primary" id="exportCSV">📥 Exporter CSV</button>
+      <button class="btn" id="printModules">🖨️ Imprimer</button>
+    </div>
+    
+    <div class="progress-bar">
+      <span class="tag" id="moduleCount">0 / 0 modules</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <span class="tag" id="progressPercent">0%</span>
+    </div>
+    
+    <div id="modulesContainer"></div>
+    
+  </div>
+  
+  <!-- ONGLET B: ROADMAP -->
+  <div id="tab-roadmap" class="tab-content">
+    
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <strong>Planning prévisionnel :</strong> L'ordre peut évoluer et un module peut prendre la place d'un autre selon les contraintes pédagogiques, sans modification du volume horaire global.
+    </div>
+    
+    <div class="roadmap-controls">
+      <div class="month-selector">
+        <button class="month-btn" id="prevMonth">◀</button>
+        <div class="month-display" id="monthDisplay">MOIS 1</div>
+        <button class="month-btn" id="nextMonth">▶</button>
+      </div>
+    </div>
+    
+    <div id="roadmapContent" class="roadmap-content"></div>
+    
+  </div>
+  
+  <!-- ONGLET C: ÉVALUATION -->
+  <div id="tab-evaluation" class="tab-content">
+    
+    <div class="alert info">
+      <span class="alert-icon">ℹ️</span>
+      <strong>Formation à distance CESAG / AUF :</strong> Les évaluations sont réparties entre contrôle continu (40%) et examen final surveillé (60%).
+    </div>
+    
+    <div class="eval-section">
+      <h4>📊 Répartition des évaluations</h4>
+      
+      <div class="eval-box highlight">
+        <div class="eval-title">40% - Contrôle Continu (Moodle/Activités évaluées)</div>
+        <ul class="eval-list">
+          <li><strong>Pré-test</strong> (si prévu dans le module)</li>
+          <li><strong>Quiz</strong> formatifs et sommatifs</li>
+          <li><strong>Forums</strong> de discussion évalués</li>
+          <li><strong>Devoirs</strong> individuels ou collaboratifs</li>
+        </ul>
+      </div>
+      
+      <div class="eval-box highlight">
+        <div class="eval-title">60% - Examen Final (Surveillance obligatoire)</div>
+        <ul class="eval-list">
+          <li>Examen en ligne surveillé via <strong>Microsoft Teams</strong></li>
+          <li><strong>Webcam activée obligatoire</strong> pendant toute la durée</li>
+          <li>Respect du calendrier officiel des examens</li>
+          <li>Connexion au lien de surveillance avant le début de l'épreuve</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="eval-section">
+      <h4>📌 Rappels importants - Formation À Distance (FOAD)</h4>
+      
+      <div class="eval-box">
+        <ul class="eval-list">
+          <li><strong>Achèvement conditionné :</strong> Certaines activités peuvent nécessiter l'achèvement d'une activité préalable avant d'être accessibles</li>
+          <li><strong>Fermeture automatique :</strong> Les activités se ferment automatiquement après la période prévue (respecter les délais)</li>
+          <li><strong>Activités évaluées :</strong> Seules les activités marquées comme "évaluées" comptent réellement dans les rapports et la note finale</li>
+          <li><strong>Suivi régulier :</strong> Consultez régulièrement votre espace Moodle pour les annonces et mises à jour</li>
+          <li><strong>Salle virtuelle permanente :</strong> Utilisez la salle Teams pour les sessions synchrones et le support technique</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="eval-section">
+      <h4>🔗 Liens essentiels MBA AG AUF</h4>
+      
+      <div class="eval-box">
+        <p style="margin-bottom: 12px;"><strong>Salle virtuelle permanente (en cas de non-disponibilité de BBB) :</strong></p>
+        <a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjU2OGE2NTYtZGM5MS00M2Y2LWE4OGUtZmQwMDYzYTMwYzQw%40thread.v2/0?context=%7b%22Tid%22%3a%2207bc7abe-6e9d-4683-bdc4-aab1418606f2%22%2c%22Oid%22%3a%22f4fcd75f-f144-4188-a7c3-f0496ede9edf%22%7d" target="_blank" class="btn primary" style="display: inline-block; margin-bottom: 16px;">🎥 Rejoindre la salle virtuelle MBA AG AUF</a>
+        
+        <p style="margin-bottom: 12px;"><strong>Surveillance des examens finaux (OBLIGATOIRE + WEBCAM ACTIVÉE) :</strong></p>
+        <a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzE0NzcwOGUtOGUwNy00YmIxLWJjODUtNDUyYjgxMDBmMzlh%40thread.v2/0?context=%7b%22Tid%22%3a%2207bc7abe-6e9d-4683-bdc4-aab1418606f2%22%2c%22Oid%22%3a%22f4fcd75f-f144-4188-a7c3-f0496ede9edf%22%7d" target="_blank" class="btn primary" style="display: inline-block;">📹 Rejoindre la surveillance d'examen</a>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- ONGLET D: TESTEUR WEBCAM -->
+  <div id="tab-webcam" class="tab-content">
+    
+    <div class="card">
+      <h3>📹 Testeur de Webcam</h3>
+      <p style="color: var(--muted); margin-bottom: 20px;">
+        Vérifiez que votre webcam fonctionne correctement avant les examens surveillés. 
+        Vous devez autoriser l'accès à la caméra lorsque votre navigateur vous le demande.
+      </p>
+      
+      <div id="webcamStatus"></div>
+      
+      <video id="webcamVideo" autoplay playsinline></video>
+      
+      <div class="webcam-controls">
+        <button id="startWebcam" class="btn primary">🎥 Activer la webcam</button>
+        <button id="stopWebcam" class="btn danger" disabled>⏹️ Arrêter la webcam</button>
+      </div>
+      
+      <div id="webcamDeviceInfo" style="display:none;"></div>
+      
+      <div class="alert info" style="margin-top: 24px;">
+        <span class="alert-icon">💡</span>
+        <strong>Conseils pour les examens :</strong>
+        <ul style="margin-top: 8px; margin-left: 24px;">
+          <li>Testez votre webcam <strong>avant le jour de l'examen</strong></li>
+          <li>Assurez-vous d'avoir une <strong>bonne luminosité</strong></li>
+          <li>Placez-vous face à la caméra dans un <strong>environnement calme</strong></li>
+          <li>Vérifiez que votre visage est <strong>bien visible</strong> à l'écran</li>
+          <li>Fermez les autres applications qui pourraient utiliser la webcam</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+
+<footer>
+  <strong>CESAG</strong> - Centre Africain d'Études Supérieures en Gestion, Dakar, Sénégal • En partenariat avec l'<strong>AUF</strong> (Agence Universitaire de la Francophonie)<br>
+  MBA Administration et Gestion (MBA AG) • Partenariat AUF • Promotion 2025-2026 • Agenda FOAD prévisionnel<br>
+  Responsable du suivi : Oscar KAKPO • Couleurs officielles : Vert #00853F, Orange #F15A29
+</footer>
+
+<script>
+// ============================================================================
+// DONNÉES DES MODULES MBA AG AUF (SOURCE OFFICIELLE)
+// ============================================================================
+
+const MODULES_DATA = [
+  {
+    section: "S1-TC",
+    titre: "SEMESTRE 1 - Tronc commun",
+    ue: "UE 1.1 Environnement économique et juridique",
+    meta: "60h • 6 crédits",
+    modules: [
+      { code: "MBAAG111", intitule: "Droit des affaires", heures: "10+10=20h", credits: 2, mois: 1, debut: "15/02/2026", fin: "17/03/2026" },
+      { code: "MBAAG112", intitule: "Environnement économique et International de l'entreprise", heures: "10+10=20h", credits: 2, mois: 1, debut: "15/02/2026", fin: "17/03/2026" },
+      { code: "MBAAG113", intitule: "Fiscalité", heures: "10+10=20h", credits: 2, mois: 1, debut: "15/02/2026", fin: "17/03/2026" }
+    ]
+  },
+  {
+    section: "S1-TC",
+    titre: "SEMESTRE 1 - Tronc commun",
+    ue: "UE 1.2 Fondamentaux du management",
+    meta: "135h • 14 crédits",
+    modules: [
+      { code: "MBAAG121", intitule: "Théorie et Management des organisations", heures: "20+10=30h", credits: 3, mois: 2, debut: "18/03/2026", fin: "17/04/2026" },
+      { code: "MBAAG122", intitule: "Management interculturel", heures: "10+10=20h", credits: 2, mois: 2, debut: "18/03/2026", fin: "17/04/2026" },
+      { code: "MBAAG123", intitule: "Management stratégique", heures: "10+10=20h", credits: 2, mois: 2, debut: "18/03/2026", fin: "17/04/2026" },
+      { code: "MBAAG124", intitule: "Marketing", heures: "10+10=20h", credits: 2, mois: 4, debut: "19/05/2026", fin: "18/06/2026" },
+      { code: "MBAAG125", intitule: "Création d'entreprise", heures: "15+10=25h", credits: 3, mois: 4, debut: "19/05/2026", fin: "18/06/2026" },
+      { code: "MBAAG126", intitule: "Gestion des projets et suivi-évaluation", heures: "10+10=20h", credits: 2, mois: 4, debut: "19/05/2026", fin: "18/06/2026" }
+    ]
+  },
+  {
+    section: "S1-TC",
+    titre: "SEMESTRE 1 - Tronc commun",
+    ue: "UE 1.3 Comptabilité, finance et contrôle",
+    meta: "145h • 10 crédits",
+    modules: [
+      { code: "MBAAG131", intitule: "Comptabilité", heures: "20+10=30h", credits: 2, mois: 3, debut: "18/04/2026", fin: "18/05/2026" },
+      { code: "MBAAG132", intitule: "Finance d'entreprise", heures: "20+10=30h", credits: 2, mois: 5, debut: "19/06/2026", fin: "19/07/2026" },
+      { code: "MBAAG133", intitule: "Contrôle interne", heures: "20+10=30h", credits: 2, mois: 5, debut: "19/06/2026", fin: "19/07/2026" },
+      { code: "MBAAG134", intitule: "Contrôle de gestion", heures: "15+10=25h", credits: 2, mois: 5, debut: "19/06/2026", fin: "19/07/2026" },
+      { code: "MBAAG135", intitule: "Marchés financiers", heures: "10+10=20h", credits: 2, mois: 6, debut: "20/07/2026", fin: "19/08/2026" }
+    ]
+  },
+  {
+    section: "S2-TC",
+    titre: "SEMESTRE 2 - Tronc commun",
+    ue: "UE 2.1 Développement personnel et professionnel",
+    meta: "100h • 9 crédits",
+    modules: [
+      { code: "MBAAG211", intitule: "Méthodologie de rédaction de mémoire", heures: "10+10=20h", credits: 2, mois: 3, debut: "18/04/2026", fin: "18/05/2026" },
+      { code: "MBAAG212", intitule: "Anglais des affaires", heures: "20+10=30h", credits: 3, mois: 3, debut: "18/04/2026", fin: "18/05/2026" },
+      { code: "MBAAG213", intitule: "Jeu d'entreprise", heures: "15+15=30h", credits: 2, mois: 6, debut: "20/07/2026", fin: "19/08/2026" },
+      { code: "MBAAG214", intitule: "Développement personnel et professionnel", heures: "10+10=20h", credits: 2, mois: 6, debut: "20/07/2026", fin: "19/08/2026" }
+    ]
+  },
+  {
+    section: "S2-TC",
+    titre: "SEMESTRE 2 - Tronc commun",
+    ue: "UE 2.2 Stage et mémoire (4 mois minimum)",
+    meta: "0h présentiel • 160h TPE • 8 crédits",
+    modules: [
+      { code: "MBAAG221", intitule: "Stage professionnel + rédaction de mémoire", heures: "≈4 mois", credits: 8, mois: null, debut: "À planifier", fin: "À planifier" }
+    ]
+  },
+  {
+    section: "GE",
+    titre: "Spécialisation 1 : Gestion des entreprises",
+    ue: "UE 2.3 Outils de Gestion de l'entreprise",
+    meta: "140h • 12 crédits",
+    specialisation: "Gestion des entreprises",
+    modules: [
+      { code: "MBAAG231", intitule: "Organisation et stratégie", heures: "25+10=35h", credits: 3, mois: 8, debut: "20/09/2026", fin: "20/10/2026" },
+      { code: "MBAAG232", intitule: "Administration et Gestion des ressources humaines", heures: "25+10=35h", credits: 3, mois: 7, debut: "20/08/2026", fin: "19/09/2026" },
+      { code: "MBAAG233", intitule: "Gestion financière", heures: "25+10=35h", credits: 3, mois: 8, debut: "20/09/2026", fin: "20/10/2026" },
+      { code: "MBAAG234", intitule: "Systèmes d'information", heures: "25+10=35h", credits: 3, mois: 7, debut: "20/08/2026", fin: "19/09/2026" }
+    ]
+  },
+  {
+    section: "AP",
+    titre: "Spécialisation 2 : Administration publique",
+    ue: "UE 2.4 Droit et Gestion publique",
+    meta: "140h • 12 crédits",
+    specialisation: "Administration publique",
+    modules: [
+      { code: "MBAAG241", intitule: "Droit de la fonction publique et de la décentralisation", heures: "10+15=25h", credits: 2, mois: 7, debut: "20/08/2026", fin: "19/09/2026" },
+      { code: "MBAAG242", intitule: "Acteurs et systèmes de protection sociale", heures: "10+15=25h", credits: 2, mois: 7, debut: "20/08/2026", fin: "19/09/2026" },
+      { code: "MBAAG243", intitule: "Science administrative et droit administratif", heures: "10+15=25h", credits: 2, mois: 7, debut: "20/08/2026", fin: "19/09/2026" },
+      { code: "MBAAG244", intitule: "Finances de l'État et Finances locales", heures: "10+15=25h", credits: 2, mois: 8, debut: "20/09/2026", fin: "20/10/2026" },
+      { code: "MBAAG245", intitule: "Gestion des ressources humaines dans l'administration publique", heures: "10+15=25h", credits: 2, mois: 8, debut: "20/09/2026", fin: "20/10/2026" },
+      { code: "MBAAG246", intitule: "Modernisation et digitalisation du service public", heures: "10+10+15=35h", credits: 2, mois: 8, debut: "20/09/2026", fin: "20/10/2026" }
+    ]
+  }
+];
+
+const LINKS = {
+  virtualRoom: "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjU2OGE2NTYtZGM5MS00M2Y2LWE4OGUtZmQwMDYzYTMwYzQw%40thread.v2/0?context=%7b%22Tid%22%3a%2207bc7abe-6e9d-4683-bdc4-aab1418606f2%22%2c%22Oid%22%3a%22f4fcd75f-f144-4188-a7c3-f0496ede9edf%22%7d",
+  examSupervision: "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzE0NzcwOGUtOGUwNy00YmIxLWJjODUtNDUyYjgxMDBmMzlh%40thread.v2/0?context=%7b%22Tid%22%3a%2207bc7abe-6e9d-4683-bdc4-aab1418606f2%22%2c%22Oid%22%3a%22f4fcd75f-f144-4188-a7c3-f0496ede9edf%22%7d"
+};
+
+// ============================================================================
+// GESTION DES ONGLETS
+// ============================================================================
+
+const tabs = document.querySelectorAll('.tab');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetTab = tab.dataset.tab;
+    tabs.forEach(t => t.classList.remove('active'));
+    tabContents.forEach(tc => tc.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(`tab-${targetTab}`).classList.add('active');
+    localStorage.setItem('lastActiveTab_AG_AUF', targetTab);
+  });
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  const lastTab = localStorage.getItem('lastActiveTab_AG_AUF');
+  if (lastTab) {
+    const tabToActivate = document.querySelector(`[data-tab="${lastTab}"]`);
+    if (tabToActivate) tabToActivate.click();
+  }
+});
+
+// ============================================================================
+// ONGLET A: AFFICHAGE DES MODULES
+// ============================================================================
+
+function renderModules(filter = 'all', searchTerm = '') {
+  const container = document.getElementById('modulesContainer');
+  container.innerHTML = '';
+  
+  let totalModules = 0;
+  let filteredModules = 0;
+  
+  MODULES_DATA.forEach(ueGroup => {
+    if (filter !== 'all' && ueGroup.section !== filter) return;
+    
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    const header = document.createElement('h3');
+    let headerHTML = `<span class="pill">${ueGroup.ue}</span> <span style="font-size: 13px; font-weight: 400; color: var(--muted);">${ueGroup.meta}</span>`;
+    if (ueGroup.specialisation) {
+      headerHTML += ` <span class="tag" style="background: #dbeafe; color: #1e40af; border-color: #93c5fd;">${ueGroup.specialisation}</span>`;
+    }
+    header.innerHTML = headerHTML;
+    card.appendChild(header);
+    
+    const moduleList = document.createElement('div');
+    moduleList.className = 'module-list';
+    
+    ueGroup.modules.forEach(module => {
+      totalModules++;
+      
+      const matchesSearch = searchTerm === '' || 
+        module.code.toLowerCase().includes(searchTerm) ||
+        module.intitule.toLowerCase().includes(searchTerm) ||
+        ueGroup.ue.toLowerCase().includes(searchTerm);
+      
+      if (!matchesSearch) return;
+      
+      filteredModules++;
+      
+      const moduleDiv = document.createElement('div');
+      moduleDiv.className = 'module-item';
+      
+      moduleDiv.innerHTML = `
+        <div class="module-code">${module.code}</div>
+        <div class="module-title">${module.intitule}</div>
+        <div class="module-meta">
+          ${module.heures} • ${module.credits} ${module.credits > 1 ? 'crédits' : 'crédit'}
+        </div>
+        <div class="module-meta" style="font-size: 11px; color: var(--muted);">
+          📅 ${module.debut} → ${module.fin}
+        </div>
+        <div class="module-links">
+          <a href="${LINKS.virtualRoom}" target="_blank" class="link-btn" title="Salle virtuelle permanente MBA AG AUF">
+            🎥 Salle virtuelle
+          </a>
+          <a href="${LINKS.examSupervision}" target="_blank" class="link-btn exam" title="Surveillance des examens">
+            📹 Examen surveillé
+          </a>
+        </div>
+      `;
+      
+      moduleList.appendChild(moduleDiv);
+    });
+    
+    if (moduleList.children.length > 0) {
+      card.appendChild(moduleList);
+      container.appendChild(card);
+    }
+  });
+  
+  updateProgress(filteredModules, totalModules);
+}
+
+function updateProgress(current, total) {
+  const percent = total > 0 ? Math.round((current / total) * 100) : 0;
+  document.getElementById('moduleCount').textContent = `${current} / ${total} modules`;
+  document.getElementById('progressFill').style.width = `${percent}%`;
+  document.getElementById('progressPercent').textContent = `${percent}%`;
+}
+
+document.getElementById('searchModules').addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filter = document.getElementById('filterSemestre').value;
+  renderModules(filter, searchTerm);
+});
+
+document.getElementById('filterSemestre').addEventListener('change', (e) => {
+  const filter = e.target.value;
+  const searchTerm = document.getElementById('searchModules').value.toLowerCase();
+  renderModules(filter, searchTerm);
+});
+
+document.getElementById('exportCSV').addEventListener('click', () => {
+  const rows = [['Section', 'UE', 'Code', 'Intitulé', 'Heures', 'Crédits', 'Début', 'Fin', 'Mois']];
+  
+  MODULES_DATA.forEach(ueGroup => {
+    ueGroup.modules.forEach(module => {
+      rows.push([
+        ueGroup.titre,
+        ueGroup.ue,
+        module.code,
+        module.intitule,
+        module.heures,
+        module.credits,
+        module.debut,
+        module.fin,
+        module.mois ? `MOIS ${module.mois}` : 'À planifier'
+      ]);
+    });
+  });
+  
+  const csv = rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'MBA_AG_AUF_Modules_FOAD_2025-2026.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('printModules').addEventListener('click', () => {
+  window.print();
+});
+
+// ============================================================================
+// ONGLET B: ROADMAP MENSUELLE
+// ============================================================================
+
+let currentMonth = 1;
+const maxMonth = 8;
+
+function renderRoadmap(month) {
+  const content = document.getElementById('roadmapContent');
+  content.innerHTML = '';
+  
+  document.getElementById('monthDisplay').textContent = `MOIS ${month}`;
+  document.getElementById('prevMonth').disabled = month === 1;
+  document.getElementById('nextMonth').disabled = month === maxMonth;
+  
+  const monthModules = [];
+  const toPlanning = [];
+  
+  MODULES_DATA.forEach(ueGroup => {
+    ueGroup.modules.forEach(module => {
+      if (module.mois === month) {
+        monthModules.push({ ...module, ue: ueGroup.ue, section: ueGroup.titre });
+      } else if (module.mois === null) {
+        toPlanning.push({ ...module, ue: ueGroup.ue, section: ueGroup.titre });
+      }
+    });
+  });
+  
+  if (monthModules.length > 0) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<h3>📅 Modules prévus pour le MOIS ${month}</h3>`;
+    
+    const moduleList = document.createElement('div');
+    moduleList.className = 'module-list';
+    
+    monthModules.forEach(module => {
+      const moduleDiv = document.createElement('div');
+      moduleDiv.className = 'module-item';
+      moduleDiv.innerHTML = `
+        <div class="module-code">${module.code}</div>
+        <div class="module-title">${module.intitule}</div>
+        <div class="module-meta">
+          📚 ${module.ue}<br>
+          🎓 ${module.section}
+        </div>
+        <div class="module-meta">
+          ${module.heures} • ${module.credits} ${module.credits > 1 ? 'crédits' : 'crédit'}
+        </div>
+        <div class="module-meta" style="font-size: 11px;">
+          📅 ${module.debut} → ${module.fin}
+        </div>
+      `;
+      moduleList.appendChild(moduleDiv);
+    });
+    
+    card.appendChild(moduleList);
+    content.appendChild(card);
+  } else {
+    content.innerHTML = `
+      <div class="alert info">
+        <span class="alert-icon">ℹ️</span>
+        Aucun module prévu pour le MOIS ${month}. Consultez les autres mois ou la section "À planifier".
+      </div>
+    `;
+  }
+  
+  if (month === 1 && toPlanning.length > 0) {
+    const cardPlanning = document.createElement('div');
+    cardPlanning.className = 'card';
+    cardPlanning.style.borderColor = '#fbbf24';
+    cardPlanning.innerHTML = `<h3>⏳ Modules à planifier</h3>`;
+    
+    const moduleList = document.createElement('div');
+    moduleList.className = 'module-list';
+    
+    toPlanning.forEach(module => {
+      const moduleDiv = document.createElement('div');
+      moduleDiv.className = 'module-item';
+      moduleDiv.style.borderColor = '#fde047';
+      moduleDiv.innerHTML = `
+        <div class="module-code">${module.code}</div>
+        <div class="module-title">${module.intitule}</div>
+        <div class="module-meta">
+          📚 ${module.ue}<br>
+          🎓 ${module.section}
+        </div>
+        <div class="module-meta">
+          ${module.heures} • ${module.credits} ${module.credits > 1 ? 'crédits' : 'crédit'}
+        </div>
+        <div class="module-meta" style="font-size: 11px; color: var(--warn);">
+          ⏳ Dates à confirmer
+        </div>
+      `;
+      moduleList.appendChild(moduleDiv);
+    });
+    
+    cardPlanning.appendChild(moduleList);
+    content.appendChild(cardPlanning);
+  }
+}
+
+document.getElementById('prevMonth').addEventListener('click', () => {
+  if (currentMonth > 1) {
+    currentMonth--;
+    renderRoadmap(currentMonth);
+  }
+});
+
+document.getElementById('nextMonth').addEventListener('click', () => {
+  if (currentMonth < maxMonth) {
+    currentMonth++;
+    renderRoadmap(currentMonth);
+  }
+});
+
+// ============================================================================
+// ONGLET D: TESTEUR WEBCAM
+// ============================================================================
+
+const webcamVideo = document.getElementById('webcamVideo');
+const startWebcamBtn = document.getElementById('startWebcam');
+const stopWebcamBtn = document.getElementById('stopWebcam');
+const webcamStatus = document.getElementById('webcamStatus');
+const webcamDeviceInfo = document.getElementById('webcamDeviceInfo');
+
+let webcamStream = null;
+
+function showWebcamStatus(message, type) {
+  webcamStatus.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+}
+
+async function startWebcam() {
+  try {
+    showWebcamStatus('🔄 Demande d\'accès à la webcam en cours...', 'info');
+    
+    webcamStream = await navigator.mediaDevices.getUserMedia({ 
+      video: { 
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      }, 
+      audio: false 
+    });
+    
+    webcamVideo.srcObject = webcamStream;
+    webcamVideo.style.display = 'block';
+    
+    startWebcamBtn.disabled = true;
+    stopWebcamBtn.disabled = false;
+    
+    const videoTrack = webcamStream.getVideoTracks()[0];
+    const settings = videoTrack.getSettings();
+    
+    webcamDeviceInfo.style.display = 'block';
+    webcamDeviceInfo.className = 'device-info';
+    webcamDeviceInfo.innerHTML = `
+      <strong>✅ Webcam activée avec succès !</strong><br>
+      📷 Appareil : ${videoTrack.label || 'Webcam'}<br>
+      📐 Résolution : ${settings.width}x${settings.height}px<br><br>
+      💡 Vérifiez que votre visage est bien visible et que l'éclairage est suffisant.
+    `;
+    
+    showWebcamStatus('<span class="alert-icon">✅</span> Webcam activée ! Vous pouvez maintenant vous voir à l\'écran. Vérifiez que tout fonctionne correctement.', 'success');
+    
+  } catch (error) {
+    console.error('Erreur webcam:', error);
+    
+    let errorMessage = '<span class="alert-icon">❌</span> <strong>Impossible d\'accéder à la webcam.</strong><br>';
+    
+    if (error.name === 'NotAllowedError') {
+      errorMessage += 'Vous devez autoriser l\'accès à la caméra dans votre navigateur. Cliquez sur l\'icône de caméra dans la barre d\'adresse pour autoriser l\'accès.';
+    } else if (error.name === 'NotFoundError') {
+      errorMessage += 'Aucune webcam détectée sur votre appareil. Vérifiez que votre webcam est bien connectée.';
+    } else if (error.name === 'NotReadableError') {
+      errorMessage += 'La webcam est peut-être utilisée par une autre application. Fermez toutes les autres applications utilisant la webcam et réessayez.';
+    } else {
+      errorMessage += `Erreur : ${error.message}`;
+    }
+    
+    showWebcamStatus(errorMessage, 'error');
+  }
+}
+
+function stopWebcam() {
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(track => track.stop());
+    webcamVideo.srcObject = null;
+    webcamVideo.style.display = 'none';
+    webcamStream = null;
+    
+    startWebcamBtn.disabled = false;
+    stopWebcamBtn.disabled = true;
+    webcamDeviceInfo.style.display = 'none';
+    
+    showWebcamStatus('<span class="alert-icon">ℹ️</span> Webcam arrêtée. Cliquez sur "Activer la webcam" pour tester à nouveau.', 'info');
+  }
+}
+
+startWebcamBtn.addEventListener('click', startWebcam);
+stopWebcamBtn.addEventListener('click', stopWebcam);
+
+window.addEventListener('beforeunload', () => {
+  if (webcamStream) {
+    stopWebcam();
+  }
+});
+
+showWebcamStatus('<span class="alert-icon">ℹ️</span> Cliquez sur "Activer la webcam" pour tester votre caméra avant les examens.', 'info');
+
+// ============================================================================
+// INITIALISATION
+// ============================================================================
+
+renderModules();
+renderRoadmap(currentMonth);
+</script>
+
+</body>
+</html>
